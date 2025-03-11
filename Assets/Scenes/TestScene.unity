@@ -518,7 +518,6 @@ GameObject:
   - component: {fileID: 872643877}
   - component: {fileID: 872643876}
   - component: {fileID: 872643878}
-  - component: {fileID: 872643879}
   m_Layer: 0
   m_Name: EventThingy
   m_TagString: Untagged
@@ -679,14 +678,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!81 &872643879
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872643875}
-  m_Enabled: 1
 --- !u!1 &928610939
 GameObject:
   m_ObjectHideFlags: 0
