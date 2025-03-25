@@ -8,6 +8,9 @@ public class Knight : MonoBehaviour
     public float speed = 2;
     Animator animator;
     SpriteRenderer spRenderer;
+    [SerializeField] AudioClip[] stepSounds;
+    AudioSource audSource;
+    [SerializeField] ParticleSystem stepParticle;
 
     public bool canRun = true;
 
@@ -17,6 +20,7 @@ public class Knight : MonoBehaviour
 
         animator = GetComponent<Animator>();
         spRenderer = GetComponent<SpriteRenderer>();
+        audSource = GetComponent<AudioSource>();
         
     }
 
@@ -53,6 +57,16 @@ public class Knight : MonoBehaviour
 
         canRun = true;
         Debug.Log("Attack done.");
+
+    }
+
+    public void HeroStep()
+    {
+
+        int clipToPlay = Random.Range(0, stepSounds.Length);
+
+        audSource.PlayOneShot(stepSounds[clipToPlay]);
+        stepParticle.Emit(5);
 
     }
 
