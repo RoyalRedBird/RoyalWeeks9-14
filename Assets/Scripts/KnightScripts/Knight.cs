@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Knight : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Knight : MonoBehaviour
     [SerializeField] AudioClip[] stepSounds;
     AudioSource audSource;
     [SerializeField] ParticleSystem stepParticle;
+
+    public CinemachineImpulseSource impulseSource;
 
     public bool canRun = true;
 
@@ -31,6 +34,8 @@ public class Knight : MonoBehaviour
         float direction = Input.GetAxisRaw("Horizontal");
         spRenderer.flipX = direction < 0;
 
+        float directionY = Input.GetAxisRaw("Vertical");
+
         animator.SetFloat("speed", Mathf.Abs(direction));
 
         if (Input.GetMouseButtonDown(0))
@@ -45,6 +50,7 @@ public class Knight : MonoBehaviour
         {
 
             transform.position += transform.right * direction * speed * Time.deltaTime;
+            transform.position += transform.up * directionY * speed * Time.deltaTime;
 
         }
 
@@ -67,6 +73,7 @@ public class Knight : MonoBehaviour
 
         audSource.PlayOneShot(stepSounds[clipToPlay]);
         stepParticle.Emit(5);
+        impulseSource.GenerateImpulseWithForce(1);
 
     }
 
