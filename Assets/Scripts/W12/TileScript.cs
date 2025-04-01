@@ -11,6 +11,8 @@ public class TileScript : MonoBehaviour
     public Tile grass;
     public Tile stone;
 
+    public Knight knight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class TileScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
 
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -36,14 +38,15 @@ public class TileScript : MonoBehaviour
             {
 
                 Debug.Log("This is a stone tile, but now it isn't.");
-                tileMap.SetTile(gridPos, grass);
+                //tileMap.SetTile(gridPos, grass);
+                knight.UpdateDestination(mousePos);
 
             }
             else if(tileSelect == grass)
             {
 
                 Debug.Log("This is a grass tile, but now it isn't.");
-                tileMap.SetTile(gridPos, stone);
+                //tileMap.SetTile(gridPos, stone);
 
             }
 
