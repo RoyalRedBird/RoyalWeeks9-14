@@ -20,9 +20,12 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] GunClass[] availableWeapons; //An array of available GunClass objects.
 
-    int weaponSelectIndex = 0; //The indexer for the available weapons.
+    [SerializeField] int weaponSelectIndex = 0; //The indexer for the available weapons.
 
     [SerializeField] float timeSinceLastFire = 0;
+
+    Coroutine activeReloadCoroutine;
+    Coroutine reloadingCoroutine;
 
     public bool weaponActive = true;
 
@@ -56,7 +59,21 @@ public class WeaponManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R) && weaponActive)
         {
 
-            StartCoroutine(StartReload());
+            activeReloadCoroutine = StartCoroutine(StartReload());
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+
+            CycleWeaponUp();
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+
+            CycleWeaponDown();
 
         }
 
@@ -127,7 +144,7 @@ public class WeaponManager : MonoBehaviour
         reloadTimeLeft = currentWeaponReloadTime;
         reloadTimer.gameObject.SetActive(true);
         reloadTimer.maxValue = currentWeaponReloadTime;
-        yield return StartCoroutine(ReloadSequence());
+        yield return reloadingCoroutine = StartCoroutine(ReloadSequence());
         reloadTimer.gameObject.SetActive(false);
         availableWeapons[weaponSelectIndex].ReloadWeapon();
         weaponActive = true;
@@ -144,6 +161,58 @@ public class WeaponManager : MonoBehaviour
             reloadTimer.value = reloadTimeLeft;
 
             yield return null;
+
+        }
+
+    }
+
+    void CycleWeaponUp()
+    {
+
+        int newIndex = weaponSelectIndex + 1;
+
+        if(newIndex > availableWeapons.Length - 1)
+        {
+
+            newIndex = 0;
+
+        }
+
+        weaponSelectIndex = newIndex;
+
+        if(activeReloadCoroutine!= null)
+        {
+
+            StopCoroutine(activeReloadCoroutine);
+            StopCoroutine(reloadingCoroutine);
+            reloadTimer.gameObject.SetActive(false);
+            weaponActive = true;
+
+        }
+
+    }
+
+    void CycleWeaponDown()
+    {
+
+        int newIndex = weaponSelectIndex - 1;
+
+        if (newIndex < 0)
+        {
+
+            newIndex = availableWeapons.Length - 1;
+
+        }
+
+        weaponSelectIndex = newIndex;
+
+        if (activeReloadCoroutine != null)
+        {
+
+            StopCoroutine(activeReloadCoroutine);
+            StopCoroutine(reloadingCoroutine);
+            reloadTimer.gameObject.SetActive(false);
+            weaponActive = true;
 
         }
 
