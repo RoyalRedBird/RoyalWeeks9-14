@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1659119887815599389}
   - component: {fileID: 7110387052659044537}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Target
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,6 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
+  onTargetDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
   oneCircle: {fileID: 604975985707592544}
   twoCircle: {fileID: 8089356080835807792}
   threeCircle: {fileID: 4191531235599626121}
@@ -63,7 +66,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196494906449376725}
   - component: {fileID: 604975985707592544}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 1PTCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2741288446528772571}
   - component: {fileID: 8089356080835807792}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 2PTCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4079120434693841797}
   - component: {fileID: 4191531235599626121}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 3PTCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

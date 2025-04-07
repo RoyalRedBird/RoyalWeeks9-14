@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TargetScript : MonoBehaviour
 {
 
     public GameManager GameManager;
+
+    public UnityEvent onTargetDestroyed;
 
     [SerializeField] SpriteRenderer oneCircle;
     [SerializeField] SpriteRenderer twoCircle;
@@ -32,6 +35,7 @@ public class TargetScript : MonoBehaviour
         {
 
             GameManager.increaseScore(3);
+            onTargetDestroyed.Invoke();
             Destroy(gameObject);
 
         }
@@ -39,6 +43,7 @@ public class TargetScript : MonoBehaviour
         {
 
             GameManager.increaseScore(2);
+            onTargetDestroyed.Invoke();
             Destroy(gameObject);
 
         }
@@ -46,6 +51,7 @@ public class TargetScript : MonoBehaviour
         {
 
             GameManager.increaseScore(1);
+            onTargetDestroyed.Invoke();
             Destroy(gameObject);
 
         }

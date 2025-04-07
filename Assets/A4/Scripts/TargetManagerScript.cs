@@ -6,15 +6,22 @@ using UnityEngine.Events;
 public class TargetManagerScript : MonoBehaviour
 {
 
-    int testQuantityToSpawn = 6;
-    int targetsSpawned = 0;
+    [SerializeField] int quantityToSpawn = 5;
+    [SerializeField] int targetsSpawned = 0;
+
+    public UnityEvent onTargetDestroyed;
+
+    public bool spawnLock = false;
 
     [SerializeField] GameObject targetObject;
     [SerializeField] GameObject weaponHandler;
+    TargetManagerScript tmScript;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        tmScript = GetComponent<TargetManagerScript>();
         
     }
 
@@ -22,19 +29,48 @@ public class TargetManagerScript : MonoBehaviour
     void Update()
     {
 
-        if(targetsSpawned <= testQuantityToSpawn)
+        if(targetsSpawned <= quantityToSpawn)
         {
 
-            GameObject newTgt = Instantiate(targetObject, Random.insideUnitCircle * 4, transform.rotation);
-            TargetScript tgtScript = newTgt.GetComponent<TargetScript>();
+            if(!spawnLock)
+            {
 
-            UnityEvent shootEvent = weaponHandler.GetComponent<WeaponManager>().onShotFired;
+                GameObject newTgt = Instantiate(targetObject, Random.insideUnitCircle * 4, transform.rotation);
+                TargetScript tgtScript = newTgt.GetComponent<TargetScript>();
 
-            shootEvent.AddListener(tgtScript.DidIGetHit);
+                UnityEvent destroyEvent = tgtScript.onTargetDestroyed;
+                UnityEvent shootEvent = weaponHandler.GetComponent<WeaponManager>().onShotFired;
 
-            targetsSpawned++;
+                shootEvent.AddListener(tgtScript.DidIGetHit);
+                destroyEvent.AddListener(tmScript.RefreshTargetCount);
+
+                targetsSpawned++;
+
+            }           
 
         }
-        
+
+        if(targetsSpawned == quantityToSpawn)
+        {
+
+            spawnLock = true;
+
+        }
+
+        if (targetsSpawned == 0)
+        {
+
+            spawnLock = false;
+
+        }
+
     }
+
+    public void RefreshTargetCount()
+    {
+
+        targetsSpawned = GameObject.FindGameObjectsWithTag("Target").Length - 1;      
+
+    }
+
 }
