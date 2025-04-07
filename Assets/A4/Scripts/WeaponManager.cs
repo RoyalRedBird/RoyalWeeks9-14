@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Vector2 mousePosition;
 
     public GameObject aimPoint; //The Aimpoint itself.
+    public Slider reloadTimer;
 
     [SerializeField] float pointDistanceFromMouse; //The distance between the mouse and the aim point, used to calculate how much the aimpoint should gravitate towards the cursor.
     [SerializeField] float lagModifier = 1; //Controls how much the aimpoint lags behind the mouse cursor, more noticable at higher values. (20+)
@@ -18,6 +20,11 @@ public class WeaponManager : MonoBehaviour
     int weaponSelectIndex = 0; //The indexer for the available weapons.
 
     [SerializeField] float timeSinceLastFire = 0;
+
+    public bool weaponActive = true;
+
+    float currentWeaponReloadTime;
+    float reloadTimeLeft = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +38,8 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
 
+        currentWeaponReloadTime = availableWeapons[weaponSelectIndex].GetReloadTime();
+
         timeSinceLastFire += Time.deltaTime;
 
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -41,7 +50,12 @@ public class WeaponManager : MonoBehaviour
 
         aimpointPosition = calculatedPointPos;
 
-        
+        if(Input.GetKeyDown(KeyCode.R) && weaponActive)
+        {
+
+            StartCoroutine(StartReload());
+
+        }
 
         if (availableWeapons[weaponSelectIndex].GetFullAutoCapability())
         {
@@ -49,8 +63,13 @@ public class WeaponManager : MonoBehaviour
             if (Input.GetMouseButton(0) && timeSinceLastFire >= availableWeapons[weaponSelectIndex].GetFireInterval())
             {
 
-                FireWeapon();
-                Debug.Log("DAKKA DAKKA DAKKA!");
+                if (weaponActive && availableWeapons[weaponSelectIndex].GetAmmoLeft() > 0)
+                {
+
+                    FireWeapon();
+                    Debug.Log("DAKKA DAKKA DAKKA!");
+
+                }
 
             }
 
@@ -61,8 +80,13 @@ public class WeaponManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && timeSinceLastFire >= availableWeapons[weaponSelectIndex].GetFireInterval())
             {
 
-                FireWeapon();
-                Debug.Log("BANG!");
+                if(weaponActive && availableWeapons[weaponSelectIndex].GetAmmoLeft() > 0)
+                {
+
+                    FireWeapon();
+                    Debug.Log("BANG!");
+
+                }               
 
             }
 
@@ -86,6 +110,37 @@ public class WeaponManager : MonoBehaviour
         Debug.Log(shootPos.x + ", " + shootPos.y);
 
         aimpointPosition = shootPos;
+
+        availableWeapons[weaponSelectIndex].DecrementAmmoCount();
+
+    }
+
+    IEnumerator StartReload()
+    {
+
+        weaponActive = false;
+        reloadTimeLeft = currentWeaponReloadTime;
+        reloadTimer.gameObject.SetActive(true);
+        reloadTimer.maxValue = currentWeaponReloadTime;
+        yield return StartCoroutine(ReloadSequence());
+        reloadTimer.gameObject.SetActive(false);
+        availableWeapons[weaponSelectIndex].ReloadWeapon();
+        weaponActive = true;
+
+    }
+
+    IEnumerator ReloadSequence()
+    {
+
+        while(reloadTimeLeft >= 0)
+        {
+
+            reloadTimeLeft -= Time.deltaTime;
+            reloadTimer.value = reloadTimeLeft;
+
+            yield return null;
+
+        }
 
     }
 

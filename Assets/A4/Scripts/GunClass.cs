@@ -21,4 +21,8 @@ public abstract class GunClass : MonoBehaviour
 
     public abstract float GetFireInterval();
 
+    public abstract float GetReloadTime();
+
+    public abstract void ReloadWeapon();
+
 }

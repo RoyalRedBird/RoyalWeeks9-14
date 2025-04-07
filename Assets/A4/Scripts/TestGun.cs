@@ -5,8 +5,8 @@ using UnityEngine;
 public class TestGun : GunClass
 {
 
-    int ammoCapacity = 10;
-    int ammoLeft = 10;
+    int ammoCapacity = 12;
+    int ammoLeft = 12;
 
     float horizontalRecoilMin = -0.5f;
     float horizontalRecoilMax = 0.5f;
@@ -14,11 +14,13 @@ public class TestGun : GunClass
     float verticalRecoilMin = 0.5f;
     float verticalRecoilMax = 1.0f;
 
-    string weaponName = "Test Gun";
+    string weaponName = "Handgun";
 
-    float fireInterval = 0.01f;
+    float fireInterval = 0.1f;
 
     bool isFullAuto = true;
+
+    float reloadTime = 2f;
 
     public override void DecrementAmmoCount()
     {
@@ -60,6 +62,16 @@ public class TestGun : GunClass
     public override float GetFireInterval()
     {
         return fireInterval;
+    }
+
+    public override float GetReloadTime()
+    {
+        return reloadTime;
+    }
+
+    public override void ReloadWeapon()
+    {
+        ammoLeft = ammoCapacity;
     }
 
 }
