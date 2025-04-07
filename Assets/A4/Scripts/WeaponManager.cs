@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class WeaponManager : MonoBehaviour
 {
 
-    [SerializeField] Vector2 aimpointPosition;
+    public UnityEvent onShotFired;
+
+    public Vector2 aimpointPosition;
     [SerializeField] Vector2 mousePosition;
 
     public GameObject aimPoint; //The Aimpoint itself.
@@ -101,6 +104,8 @@ public class WeaponManager : MonoBehaviour
 
         timeSinceLastFire = 0;
 
+        onShotFired.Invoke();
+
         Vector2 shootPos = aimpointPosition;
 
         shootPos.y += availableWeapons[weaponSelectIndex].GetVerticalRecoil();
@@ -111,7 +116,7 @@ public class WeaponManager : MonoBehaviour
 
         aimpointPosition = shootPos;
 
-        availableWeapons[weaponSelectIndex].DecrementAmmoCount();
+        availableWeapons[weaponSelectIndex].DecrementAmmoCount();      
 
     }
 
