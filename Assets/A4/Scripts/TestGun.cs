@@ -16,11 +16,11 @@ public class TestGun : GunClass
 
     string weaponName = "Handgun";
 
-    float fireInterval = 0.1f;
+    float fireInterval = 0.2f;
 
-    bool isFullAuto = true;
+    bool isFullAuto = false;
 
-    float reloadTime = 2f;
+    float reloadTime = 1.1f;
 
     public override void DecrementAmmoCount()
     {

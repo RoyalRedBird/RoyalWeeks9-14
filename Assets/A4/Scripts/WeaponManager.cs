@@ -32,6 +32,7 @@ public class WeaponManager : MonoBehaviour
 
     public TextMeshProUGUI weaponSelectText;
     public TextMeshProUGUI ammoCounterText;
+    public TextMeshProUGUI fireModeText;
 
     float currentWeaponReloadTime;
     float reloadTimeLeft = 0;
@@ -120,6 +121,7 @@ public class WeaponManager : MonoBehaviour
 
         weaponSelectText.text = "Current Weapon: " + availableWeapons[weaponSelectIndex].GetWeaponName();
         ammoCounterText.text = "Ammo: " + availableWeapons[weaponSelectIndex].GetAmmoLeft() + "/" + availableWeapons[weaponSelectIndex].GetAmmoCount();
+        fireModeText.text = "Full Auto?: " + availableWeapons[weaponSelectIndex].GetFullAutoCapability();
 
     }
 

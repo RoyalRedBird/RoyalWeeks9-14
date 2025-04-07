@@ -11,12 +11,12 @@ public class AssaultRifle : GunClass
     float horizontalRecoilMin = -0.7f;
     float horizontalRecoilMax = 0.7f;
 
-    float verticalRecoilMin = 0.8f;
-    float verticalRecoilMax = 1.3f;
+    float verticalRecoilMin = 1.5f;
+    float verticalRecoilMax = 2f;
 
     string weaponName = "Assault Rifle";
 
-    float fireInterval = 0.2f;
+    float fireInterval = 0.05f;
 
     bool isFullAuto = true;
 
