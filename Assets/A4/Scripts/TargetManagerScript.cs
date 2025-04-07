@@ -42,7 +42,7 @@ public class TargetManagerScript : MonoBehaviour
                 UnityEvent shootEvent = weaponHandler.GetComponent<WeaponManager>().onShotFired;
 
                 shootEvent.AddListener(tgtScript.DidIGetHit);
-                destroyEvent.AddListener(tmScript.RefreshTargetCount);
+                destroyEvent.AddListener(tmScript.StartRefreshTargetCount);
 
                 targetsSpawned++;
 
@@ -66,10 +66,18 @@ public class TargetManagerScript : MonoBehaviour
 
     }
 
-    public void RefreshTargetCount()
+    public void StartRefreshTargetCount()
     {
 
-        targetsSpawned = GameObject.FindGameObjectsWithTag("Target").Length - 1;      
+        StartCoroutine(RefreshTargetCount());     
+
+    }
+
+    public IEnumerator RefreshTargetCount()
+    {
+
+        yield return new WaitForSeconds(0.01f);
+        targetsSpawned = GameObject.FindGameObjectsWithTag("Target").Length;
 
     }
 

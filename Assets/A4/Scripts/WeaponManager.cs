@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class WeaponManager : MonoBehaviour
     Coroutine reloadingCoroutine;
 
     public bool weaponActive = true;
+
+    public TextMeshProUGUI weaponSelectText;
+    public TextMeshProUGUI ammoCounterText;
 
     float currentWeaponReloadTime;
     float reloadTimeLeft = 0;
@@ -113,6 +117,9 @@ public class WeaponManager : MonoBehaviour
         }
 
         aimPoint.transform.position = aimpointPosition;
+
+        weaponSelectText.text = "Current Weapon: " + availableWeapons[weaponSelectIndex].GetWeaponName();
+        ammoCounterText.text = "Ammo: " + availableWeapons[weaponSelectIndex].GetAmmoLeft() + "/" + availableWeapons[weaponSelectIndex].GetAmmoCount();
 
     }
 
