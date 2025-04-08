@@ -229,6 +229,9 @@ public class WeaponManager : MonoBehaviour
 
     //INT. BRENNAN
     //DEAD DEATH
-    //KILLME KILLME KILLME KILLME KILLME KILLME
+    //KILLME KILLME KILLME KILLME KILLME KILLME KILLME
+
+    //https://youtu.be/Pe9JVLEBgcc?si=XC-Tu_yiJYLzHf6N
+    //As of finishing this project I have a cold lol.
 
 }
