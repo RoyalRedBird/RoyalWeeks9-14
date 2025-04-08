@@ -1410,9 +1410,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quantityToSpawn: 5
   targetsSpawned: 0
-  onTargetDestroyed:
-    m_PersistentCalls:
-      m_Calls: []
   spawnLock: 0
   targetObject: {fileID: 1478012470296991456, guid: 3fca5b54912296a44aa22de684cb49ec, type: 3}
   weaponHandler: {fileID: 410623385}
@@ -1461,7 +1458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalScore: 0
-  weaponSelectText: {fileID: 1715554205}
+  totalScoreText: {fileID: 1715554205}
 --- !u!4 &1951630911
 Transform:
   m_ObjectHideFlags: 0

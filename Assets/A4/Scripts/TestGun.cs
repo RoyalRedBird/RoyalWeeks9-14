@@ -5,22 +5,24 @@ using UnityEngine;
 public class TestGun : GunClass
 {
 
-    int ammoCapacity = 12;
-    int ammoLeft = 12;
+    //NOTE: For comments regarding the overridden methods, see the GunClass script.
 
-    float horizontalRecoilMin = -0.5f;
-    float horizontalRecoilMax = 0.5f;
+    int ammoCapacity = 12; //The max ammo capacity.
+    int ammoLeft = 12; //Remaining ammo.
 
-    float verticalRecoilMin = 0.5f;
-    float verticalRecoilMax = 1.0f;
+    float horizontalRecoilMin = -0.5f; //The minimum value possible for horizontal recoil.
+    float horizontalRecoilMax = 0.5f; //The maximum value possible for horizontal recoil.
 
-    string weaponName = "Handgun";
+    float verticalRecoilMin = 0.5f; //The minimum value possible for vertical recoil.
+    float verticalRecoilMax = 1.0f; //The maximum value possible for vertical recoil.
 
-    float fireInterval = 0.2f;
+    string weaponName = "Handgun"; //The name of the weapon.
 
-    bool isFullAuto = false;
+    float fireInterval = 0.2f; //The firing interval, for fire rate.
 
-    float reloadTime = 1.1f;
+    bool isFullAuto = false; //Is this weapon full auto?
+
+    float reloadTime = 1.1f; //How long this gun takes to reload.
 
     public override void DecrementAmmoCount()
     {
